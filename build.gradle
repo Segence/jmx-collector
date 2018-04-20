@@ -10,7 +10,7 @@ apply plugin: 'com.palantir.jacoco-full-report'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-group = 'com.segence.jmx.collector'
+group = 'com.segence.commons'
 
 repositories {
   mavenCentral()
