@@ -1,0 +1,50 @@
+plugins {
+  id 'com.palantir.jacoco-full-report' version '0.4.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.palantir.jacoco-full-report'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = 'com.segence.jmx.collector'
+
+repositories {
+  mavenCentral()
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = gradleWrapperVersion
+}
+
+task printVersion {
+  doLast {
+    println project.version
+  }
+}
+
+task sourceJar(type: Jar) {
+  from sourceSets.main.allJava
+}
+
+dependencies {
+  testCompile(
+    "junit:junit:${junitVersion}",
+    "org.hamcrest:hamcrest-all:${hamcrestVersion}"
+  )
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+
+      artifact sourceJar {
+        classifier "sources"
+      }
+    }
+  }
+}
