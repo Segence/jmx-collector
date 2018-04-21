@@ -1,11 +1,13 @@
 plugins {
   id 'com.palantir.jacoco-full-report' version '0.4.0'
+  id 'com.jfrog.bintray' version '1.7.3'
 }
 
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.palantir.jacoco-full-report'
+apply plugin: 'com.jfrog.bintray'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -14,6 +16,19 @@ group = 'com.segence.commons'
 
 repositories {
   mavenCentral()
+}
+
+bintray {
+  user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+  key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+  publications = ['ProjectPublication']
+  pkg {
+    repo = 'jmx-collector'
+    name = 'jmx-collector'
+    userOrg = 'segence'
+    licenses = ['Apache-2.0']
+    vcsUrl = 'https://github.com/segence/jmx-collector.git'
+  }
 }
 
 task wrapper(type: Wrapper) {
@@ -37,9 +52,16 @@ dependencies {
   )
 }
 
+test {
+  testLogging {
+    events = ["passed", "failed", "skipped"]
+    showStandardStreams = true
+  }
+}
+
 publishing {
   publications {
-    mavenJava(MavenPublication) {
+    ProjectPublication(MavenPublication) {
       from components.java
 
       artifact sourceJar {

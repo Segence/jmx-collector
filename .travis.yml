@@ -1,5 +1,14 @@
 language: java
 jobs:
   include:
-    - stage: test
-      script: ./gradlew clean test
+  - stage: test
+    script: "./scripts/stage.sh unit-test"
+  - stage: publish
+    script: "./scripts/stage.sh publish-to-bintray"
+stages:
+  - test
+  - name: deploy
+    if: branch = master
+env:
+  matrix:
+    secure: O3EZu14texxZ5yQceQA7rv8n4djpgu1DTkZ6ChJ+Y8liPFbu7biPWydyiLShDKL5/xQh9S0dXGSi7mN51ZKdh3XHQtBcKBwiieKXmWcoIz7WX2jGKP8KM/cwa22DFjDjC2wldUT3hpI41Cs7ViixJMMdQjVQRTRXdDAj0r6sNLduBodOBwaKlCLqW6DH60LEut6mcROV8eXByNXAb4v44jRjrMBIF78fFNiVM35zwZnVqsVRNlsUk9Rl9mkHYywKuKan1otADdvcZKLAQ/0H5qsrajAmWPrh4Z/36rAcx+gjShzrNN6j2seSe56g26WeeBr33Bj0mbpg1Me/XRVUtbFj4TXRdMUiV0CjUmbkDMagvWHqnigA8/+qC6drNwkWhsvqRbI8xKc5IU+V7/h4Li01LC0GSVKOPsvUzG1un3bax3o/Hdvc1oSncWE/n1fivJZ16k/CzVPgt9yXY68jJ4DXD3ndnRI2zlkomcbj+dk62hJGzlpmYRz3PVYMFD8RiJkXYvJjYkXlYhDGacFJ6GhK1i3hMrxMscAco+bFvObIItCbYXw7ntn1Q003WjXrFZ+BraAmzFe2pQgqB5tGqPfQSgHRqvty9sb0HH9Tsfxtkyx7uXaVsDasdmDjHqLSldYnp7XaO2PeFdgiuYwo4N5RG61tyVWxAZuw4+7IpUU=
