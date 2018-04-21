@@ -4,10 +4,13 @@ jobs:
   - stage: test
     script: "./scripts/stage.sh unit-test"
 deploy:
-  provider: script
-  script: "./scripts/stage.sh publish-to-bintray"
-  on:
-    branch: master
+  - provider: script
+    script: "./scripts/stage.sh publish-to-bintray"
+    on:
+      branch: master
+  - provider: releases
+    on:
+      branch: dev
 env:
   global:
     - BINTRAY_USER=robvadai
