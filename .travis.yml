@@ -4,8 +4,12 @@ jobs:
   - stage: test
     script: "./scripts/stage.sh unit-test"
   - stage: publish
-    if: branch = master
+
     script: "./scripts/stage.sh publish-to-bintray"
+stages:
+  - test
+  - name: publish
+    if: branch = master
 env:
   global:
     - BINTRAY_USER=robvadai
