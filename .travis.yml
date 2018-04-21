@@ -11,6 +11,7 @@ before_deploy:
   - git config --local user.name "Continuous Integration Automation"
   - git config --local user.email "ci@segence.com"
   - ./scripts/stage.sh generate-tag
+  - git tag
 deploy:
   - provider: script
     script: "./scripts/stage.sh publish-to-bintray"
@@ -22,4 +23,3 @@ deploy:
     on:
       repo: Segence/jmx-collector
       branch: dev
-      tags: true
