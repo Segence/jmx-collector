@@ -4,8 +4,8 @@ jobs:
   - stage: test
     script: "./scripts/stage.sh unit-test"
   - stage: publish
-    if: branch = master
-    script: 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./scripts/stage.sh publish-to-bintray; fi'
+    if: (branch IN (master)) AND (type NOT IN (push, pull_request))
+    script: "./scripts/stage.sh publish-to-bintray"
 env:
   global:
     - BINTRAY_USER=robvadai
