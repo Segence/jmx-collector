@@ -42,7 +42,7 @@ public class JmxCollectorTest {
         Set<MBeanMetricResult> expectedResult = Stream.of(
             new MBeanMetricResult(
                 new MBeanMetric(
-                    "com.sun.management.internal.OperatingSystemImpl",
+                    "sun.management.OperatingSystemImpl",
                     Collections.emptyList()
                 )
             )).collect(Collectors.toSet());
@@ -72,7 +72,7 @@ public class JmxCollectorTest {
         Set<MBeanMetricResult> expectedResult = Stream.of(
             new MBeanMetricResult(
                 new MBeanMetric(
-                    "com.sun.management.internal.OperatingSystemImpl",
+                    "sun.management.OperatingSystemImpl",
                     Arrays.asList(
                         new Attribute("AvailableProcessors", NUMBER_OF_CPU_CORES),
                         new Attribute("Arch", CURRENT_SYSTEM_ARCHITECTURE)

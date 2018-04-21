@@ -1,5 +1,12 @@
 language: java
 jobs:
   include:
-    - stage: test
-      script: ./gradlew clean test
+  - stage: test
+    script: "./scripts/stage.sh unit-test"
+  - stage: publish
+    if: branch IN (master) AND NOT type IN (push, pull_request)
+    script: "./scripts/stage.sh publish-to-bintray"
+env:
+  global:
+    - BINTRAY_USER=robvadai
+    - secure: p3Ft3z9hQ2e08Or5k6LLcC4jKmFq08S/hdhWTkRY7TvNcjHjRK42f7xOKJliCJgLpUDOgMu6TT/qgV2oQsTpUVeDcPF3FOasbYj+8nGTLKHb4rYOf4WU3MmtbfwaZCXSr4Xw5SgPgxglOUPDzNF7TtABxpOKOYSHp+T6k7v7xI5dIHDjeyLaL/OXTmwqTkt2TfwBQsIuPIya+7w6xBwCvqT0Qgjj4FQq5k0e24maXkD3aQLbFd+mna/tJBfV700Zrelj8FdsZuJGVGxlX/UWfPTzIzNXBRPMuZCngs81maDTmNb69vx728R3vUMLvO/VAQxgCi/luZdOXzGa4OHTPVlAxubjIN+sP5c3Pm/tnhFhtE51IoiRsViuR7+POsY5Y9b9c9QNHfenljvQe/pdMz2qMSgmXEJTdqUWRpGU1U6XBJLDLLhOA0pAS4XSm7tyhE8iLhIZ6Wl7GdSbkVtlyFf7vyK8DsQLwFxxM9E14evCaBdVDUc4rq6d23VdcmYMBeUkvOpBugUTbpsUlp5hJbMTwTKYAmKZyUTHjxTE+ynA1KMnrHsnSo+jY45eDJGEzHWJi2J2qHxPuLP8qhfA5igwQSCwWjOTw4mQrbhCUZRDBCsgqeGM1Lm8aXPOmMvhG3+giWTRvkl3+eOcYo/kqywFLHmt+MQCkIF1UQZYZ6Y=
