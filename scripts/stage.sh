@@ -12,7 +12,7 @@ function dependencies {
 }
 
 function generate-tag {
-    git tag $(./gradlew printVersion | sed -n '2p')
+    git tag --force $(./gradlew printVersion | sed -n '2p')
 }
 
 function unit-test {
