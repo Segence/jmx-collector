@@ -1,4 +1,4 @@
-package com.segence.jmx.collector;
+package com.segence.commons.jmx.collector;
 
 import org.junit.Test;
 

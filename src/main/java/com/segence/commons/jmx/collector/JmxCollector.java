@@ -1,4 +1,4 @@
-package com.segence.jmx.collector;
+package com.segence.commons.jmx.collector;
 
 import javax.management.AttributeList;
 import javax.management.MBeanServer;
