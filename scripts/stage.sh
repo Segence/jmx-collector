@@ -3,12 +3,16 @@
 set -e
 
 function usage {
-    echo "Usage: $0 <dependencies|unit-test|publish-local|publish|publish-to-bintray> [PROJECT]"
+    echo "Usage: $0 <dependencies|generate-tag|unit-test|publish-local|publish|publish-to-bintray> [PROJECT]"
     exit 1
 }
 
 function dependencies {
     ./gradlew clean dependencies
+}
+
+function generate-tag {
+    git tag $(./gradlew printVersion | sed -n '2p')
 }
 
 function unit-test {
@@ -35,6 +39,9 @@ GOAL=$1
 case $GOAL in
   dependencies)
     dependencies
+    ;;
+  generate-tag)
+    generate-tag
     ;;
   unit-test)
     unit-test
