@@ -3,9 +3,11 @@ jobs:
   include:
   - stage: test
     script: "./scripts/stage.sh unit-test"
-  - stage: publish
-    if: branch IN (master) AND NOT type IN (push, pull_request)
-    script: "./scripts/stage.sh publish-to-bintray"
+deploy:
+  provider: script
+  script: "./scripts/stage.sh publish-to-bintray"
+  on:
+    branch: master
 env:
   global:
     - BINTRAY_USER=robvadai
