@@ -21,7 +21,7 @@ public class MBeanMetricResult implements Serializable {
         return error;
     }
 
-    public Optional<MBeanMetric> getmBeanMetric() {
+    public Optional<MBeanMetric> getMBeanMetric() {
         return mBeanMetric;
     }
 
