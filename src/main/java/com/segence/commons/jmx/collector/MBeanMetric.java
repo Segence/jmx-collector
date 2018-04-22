@@ -1,22 +1,23 @@
 package com.segence.commons.jmx.collector;
 
 import javax.management.Attribute;
+import javax.management.ObjectInstance;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 public class MBeanMetric implements Serializable {
 
-    private String mbeanClassName;
+    private ObjectInstance objectInstance;
     private List<Attribute> attributes;
 
-    public MBeanMetric(String mbeanClassName, List<Attribute> attributes) {
-        this.mbeanClassName = mbeanClassName;
+    public MBeanMetric(ObjectInstance objectInstance, List<Attribute> attributes) {
+        this.objectInstance = objectInstance;
         this.attributes = attributes;
     }
 
-    public String getMbeanClassName() {
-        return mbeanClassName;
+    public ObjectInstance getObjectInstance() {
+        return objectInstance;
     }
 
     public List<Attribute> getAttributes() {
@@ -28,20 +29,20 @@ public class MBeanMetric implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MBeanMetric that = (MBeanMetric) o;
-        return Objects.equals(mbeanClassName, that.mbeanClassName) &&
+        return Objects.equals(objectInstance, that.objectInstance) &&
                 Objects.equals(attributes, that.attributes);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(mbeanClassName, attributes);
+        return Objects.hash(objectInstance, attributes);
     }
 
     @Override
     public String toString() {
         return "MBeanMetric{" +
-                "mbeanClassName='" + mbeanClassName + '\'' +
+                "objectInstance='" + objectInstance + '\'' +
                 ", attributes=" + attributes +
                 '}';
     }

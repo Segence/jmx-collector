@@ -21,7 +21,7 @@ public class JmxCollector {
                         objectInstance.getObjectName(),
                         objectNameAndAttributes.getValue().stream().toArray(String[]::new)
                     );
-                    return new MBeanMetricResult((new MBeanMetric(objectInstance.getClassName(), attributes.asList())));
+                    return new MBeanMetricResult((new MBeanMetric(objectInstance, attributes.asList())));
                 } catch (Throwable e) {
                     return new MBeanMetricResult(e);
                 }

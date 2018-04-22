@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import javax.management.Attribute;
 import javax.management.MalformedObjectNameException;
+import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,7 +19,7 @@ public class JmxCollectorTest {
     private final static int NUMBER_OF_CPU_CORES = Runtime.getRuntime().availableProcessors();
 
     @Test
-    public void shouldReportInvalidMbeansAndAttributeValues() {
+    public void shouldReportInvalidMbeansAndAttributeValues() throws MalformedObjectNameException {
 
         Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<ObjectName, Set<String>>() {{
             try {
@@ -39,12 +40,11 @@ public class JmxCollectorTest {
             }
         }};
 
+        ObjectInstance objectInstance = new ObjectInstance("java.lang:type=OperatingSystem", "sun.management.OperatingSystemImpl");
+
         Set<MBeanMetricResult> expectedResult = Stream.of(
             new MBeanMetricResult(
-                new MBeanMetric(
-                    "sun.management.OperatingSystemImpl",
-                    Collections.emptyList()
-                )
+                new MBeanMetric(objectInstance, Collections.emptyList())
             )).collect(Collectors.toSet());
 
         Set<MBeanMetricResult> result = JmxCollector.queryAsSet(mbeansAndAttributesToQuery);
@@ -53,7 +53,7 @@ public class JmxCollectorTest {
     }
 
     @Test
-    public void shouldReturnAllValidMbeansAndAttributeValues() {
+    public void shouldReturnAllValidMbeansAndAttributeValues() throws MalformedObjectNameException {
 
         Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<ObjectName, Set<String>>() {{
             try {
@@ -69,10 +69,12 @@ public class JmxCollectorTest {
             }
         }};
 
+        ObjectInstance objectInstance = new ObjectInstance("java.lang:type=OperatingSystem", "sun.management.OperatingSystemImpl");
+
         Set<MBeanMetricResult> expectedResult = Stream.of(
             new MBeanMetricResult(
                 new MBeanMetric(
-                    "sun.management.OperatingSystemImpl",
+                    objectInstance,
                     Arrays.asList(
                         new Attribute("AvailableProcessors", NUMBER_OF_CPU_CORES),
                         new Attribute("Arch", CURRENT_SYSTEM_ARCHITECTURE)
