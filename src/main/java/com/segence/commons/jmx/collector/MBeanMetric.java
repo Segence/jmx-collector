@@ -15,6 +15,14 @@ public class MBeanMetric implements Serializable {
         this.attributes = attributes;
     }
 
+    public String getMbeanClassName() {
+        return mbeanClassName;
+    }
+
+    public List<Attribute> getAttributes() {
+        return attributes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
