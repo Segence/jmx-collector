@@ -33,4 +33,3 @@ Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<ObjectName
 
 Set<MBeanMetricResult> results = JmxCollector.queryAsSet(mbeansAndAttributesToQuery);
 ```
-
