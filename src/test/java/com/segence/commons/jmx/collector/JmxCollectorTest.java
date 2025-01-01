@@ -1,19 +1,22 @@
 package com.segence.commons.jmx.collector;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import org.junit.jupiter.api.Test;
 
 import javax.management.Attribute;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
-import java.util.*;
+import java.util.Collections;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 class JmxCollectorTest {
 
@@ -23,7 +26,7 @@ class JmxCollectorTest {
     @Test
     public void shouldReportInvalidMbeansAndAttributeValues() throws MalformedObjectNameException {
 
-        Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<ObjectName, Set<String>>() {{
+        Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<>() {{
             try {
                 put(
                     new ObjectName("java.lang:type=OperatingSystem"),
@@ -42,7 +45,7 @@ class JmxCollectorTest {
             }
         }};
 
-        ObjectInstance objectInstance = new ObjectInstance("java.lang:type=OperatingSystem", "sun.management.OperatingSystemImpl");
+        ObjectInstance objectInstance = new ObjectInstance("java.lang:type=OperatingSystem", "com.sun.management.internal.OperatingSystemImpl");
 
         Set<MBeanMetricResult> expectedResult = Stream.of(
             new MBeanMetricResult(
@@ -57,7 +60,7 @@ class JmxCollectorTest {
     @Test
     public void shouldReturnAllValidMbeansAndAttributeValues() throws MalformedObjectNameException {
 
-        Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<ObjectName, Set<String>>() {{
+        Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<>() {{
             try {
                 put(
                     new ObjectName("java.lang:type=OperatingSystem"),
@@ -71,7 +74,7 @@ class JmxCollectorTest {
             }
         }};
 
-        ObjectInstance objectInstance = new ObjectInstance("java.lang:type=OperatingSystem", "sun.management.OperatingSystemImpl");
+        ObjectInstance objectInstance = new ObjectInstance("java.lang:type=OperatingSystem", "com.sun.management.internal.OperatingSystemImpl");
 
         Set<MBeanMetricResult> expectedResult = Stream.of(
             new MBeanMetricResult(
