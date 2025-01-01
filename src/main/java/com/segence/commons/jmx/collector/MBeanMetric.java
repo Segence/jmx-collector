@@ -1,12 +1,13 @@
 package com.segence.commons.jmx.collector;
 
-import javax.management.Attribute;
-import javax.management.ObjectInstance;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class MBeanMetric implements Serializable {
+import javax.management.Attribute;
+import javax.management.ObjectInstance;
+
+public final class MBeanMetric implements Serializable {
 
     private final ObjectInstance objectInstance;
     private final List<Attribute> attributes;

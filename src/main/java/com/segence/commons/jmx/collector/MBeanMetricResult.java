@@ -4,25 +4,25 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class MBeanMetricResult implements Serializable {
+public final class MBeanMetricResult implements Serializable {
 
-    private Optional<Throwable> error = Optional.empty();
-    private Optional<MBeanMetric> mBeanMetric = Optional.empty();
+    private Throwable error;
+    private MBeanMetric mBeanMetric;
 
     public MBeanMetricResult(MBeanMetric mBeanMetric) {
-        this.mBeanMetric = Optional.of(mBeanMetric);
+        this.mBeanMetric = mBeanMetric;
     }
 
     public MBeanMetricResult(Throwable error) {
-        this.error = Optional.of(error);
+        this.error = error;
     }
 
     public Optional<Throwable> getError() {
-        return error;
+        return Optional.ofNullable(error);
     }
 
     public Optional<MBeanMetric> getMBeanMetric() {
-        return mBeanMetric;
+        return Optional.ofNullable(mBeanMetric);
     }
 
     @Override
@@ -36,7 +36,6 @@ public class MBeanMetricResult implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(error, mBeanMetric);
     }
 
