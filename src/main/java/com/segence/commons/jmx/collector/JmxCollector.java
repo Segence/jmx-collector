@@ -1,6 +1,7 @@
 package com.segence.commons.jmx.collector;
 
 import java.lang.management.ManagementFactory;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,7 +45,7 @@ public final class JmxCollector {
                         objectInstance.getObjectName(),
                         objectNameAndAttributes.getValue().toArray(String[]::new)
                     );
-                    return new MBeanMetricResult(new MBeanMetric(objectInstance, attributes.asList()));
+                    return new MBeanMetricResult(new MBeanMetric(objectInstance, Collections.unmodifiableList(attributes.asList())));
                 } catch (Exception e) {
                     return new MBeanMetricResult(e);
                 }
