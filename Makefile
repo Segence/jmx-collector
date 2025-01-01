@@ -23,10 +23,6 @@ unit-test:
 unit-test-publish-report:
 	@./gradlew clean unitTest coveralls
 
-.PHONY: integration-test # Runs integration tests
-integration-test:
-	@./gradlew clean integrationTest
-
 .PHONY: build # Builds artifacts
 build:
 	@./gradlew clean build
