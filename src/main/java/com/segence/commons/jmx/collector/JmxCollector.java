@@ -1,17 +1,19 @@
 package com.segence.commons.jmx.collector;
 
-import javax.management.AttributeList;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
 import java.lang.management.ManagementFactory;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class JmxCollector {
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+
+public final class JmxCollector {
 
     private static final MBeanServer M_BEAN_SERVER = ManagementFactory.getPlatformMBeanServer();
+
+    private JmxCollector() { }
 
     /**
      * Queries a collection of MBeans.
@@ -37,7 +39,7 @@ public class JmxCollector {
         return objectNames.entrySet().stream().flatMap(objectNameAndAttributes ->
             M_BEAN_SERVER.queryMBeans(objectNameAndAttributes.getKey(), null).stream().map(objectInstance -> {
                 try {
-                    AttributeList attributes = M_BEAN_SERVER.getAttributes(
+                    final var attributes = M_BEAN_SERVER.getAttributes(
                         objectInstance.getObjectName(),
                         objectNameAndAttributes.getValue().toArray(String[]::new)
                     );

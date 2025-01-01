@@ -1,15 +1,20 @@
 package com.segence.commons.jmx.collector;
 
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.Optional;
 
-public record MBeanMetricResult(Throwable error, MBeanMetric mBeanMetric) {
+public final class MBeanMetricResult implements Serializable {
 
-    public MBeanMetricResult(Throwable error) {
-        this(error, null);
-    }
+    private Throwable error;
+    private MBeanMetric mBeanMetric;
 
     public MBeanMetricResult(MBeanMetric mBeanMetric) {
-        this(null, mBeanMetric);
+        this.mBeanMetric = mBeanMetric;
+    }
+
+    public MBeanMetricResult(Throwable error) {
+        this.error = error;
     }
 
     public Optional<Throwable> getError() {
@@ -18,5 +23,27 @@ public record MBeanMetricResult(Throwable error, MBeanMetric mBeanMetric) {
 
     public Optional<MBeanMetric> getMBeanMetric() {
         return Optional.ofNullable(mBeanMetric);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MBeanMetricResult that = (MBeanMetricResult) o;
+        return Objects.equals(error, that.error) &&
+                Objects.equals(mBeanMetric, that.mBeanMetric);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(error, mBeanMetric);
+    }
+
+    @Override
+    public String toString() {
+        return "MBeanMetricResult{" +
+                "error=" + error +
+                ", mBeanMetric=" + mBeanMetric +
+                '}';
     }
 }
