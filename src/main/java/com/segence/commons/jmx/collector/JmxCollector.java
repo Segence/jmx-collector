@@ -1,7 +1,6 @@
 package com.segence.commons.jmx.collector;
 
 import java.lang.management.ManagementFactory;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -12,7 +11,10 @@ import javax.management.ObjectName;
 
 public final class JmxCollector {
 
-    private static final MBeanServer M_BEAN_SERVER = ManagementFactory.getPlatformMBeanServer();
+    private static final MBeanServer MBEAN_SERVER = ManagementFactory.getPlatformMBeanServer();
+
+    private static final MBeanMetricResultGenerator MBEAN_METRIC_RESULT_GENERATOR =
+        new MBeanMetricResultGenerator(MBEAN_SERVER);
 
     private JmxCollector() { }
 
@@ -39,17 +41,13 @@ public final class JmxCollector {
     public static Stream<MBeanMetricResult> query(Map<ObjectName, Set<String>> objectNames) {
         // CHECKSTYLE:OFF: checkstyle:NeedBraces
         return objectNames.entrySet().stream().flatMap(objectNameAndAttributes ->
-            M_BEAN_SERVER.queryMBeans(objectNameAndAttributes.getKey(), null).stream().map(objectInstance -> {
-                try {
-                    final var attributes = M_BEAN_SERVER.getAttributes(
-                        objectInstance.getObjectName(),
-                        objectNameAndAttributes.getValue().toArray(String[]::new)
-                    );
-                    return new MBeanMetricResult(new MBeanMetric(objectInstance, Collections.unmodifiableList(attributes.asList())));
-                } catch (Exception e) {
-                    return new MBeanMetricResult(e);
-                }
-            })
+            MBEAN_SERVER.queryMBeans(objectNameAndAttributes.getKey(), null)
+                        .stream().map(objectInstance ->
+                                            MBEAN_METRIC_RESULT_GENERATOR.getAttributes(
+                                                objectInstance,
+                                                objectNameAndAttributes.getValue().toArray(String[]::new)
+                                            )
+            )
         );
         // CHECKSTYLE:ON: checkstyle:NeedBraces
     }
