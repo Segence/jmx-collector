@@ -36,6 +36,7 @@ public final class JmxCollector {
      * @see MBeanMetric
      */
     public static Stream<MBeanMetricResult> query(Map<ObjectName, Set<String>> objectNames) {
+        // CHECKSTYLE:OFF: checkstyle:NeedBraces
         return objectNames.entrySet().stream().flatMap(objectNameAndAttributes ->
             M_BEAN_SERVER.queryMBeans(objectNameAndAttributes.getKey(), null).stream().map(objectInstance -> {
                 try {
@@ -43,12 +44,13 @@ public final class JmxCollector {
                         objectInstance.getObjectName(),
                         objectNameAndAttributes.getValue().toArray(String[]::new)
                     );
-                    return new MBeanMetricResult((new MBeanMetric(objectInstance, attributes.asList())));
-                } catch (Throwable e) {
+                    return new MBeanMetricResult(new MBeanMetric(objectInstance, attributes.asList()));
+                } catch (Exception e) {
                     return new MBeanMetricResult(e);
                 }
             })
         );
+        // CHECKSTYLE:ON: checkstyle:NeedBraces
     }
 
     public static Set<MBeanMetricResult> queryAsSet(Map<ObjectName, Set<String>> objectNames) {

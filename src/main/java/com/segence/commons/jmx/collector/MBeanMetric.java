@@ -27,24 +27,25 @@ public final class MBeanMetric implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MBeanMetric that = (MBeanMetric) o;
-        return Objects.equals(objectInstance, that.objectInstance) &&
-                Objects.equals(attributes, that.attributes);
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final MBeanMetric that = (MBeanMetric) o;
+        return Objects.equals(objectInstance, that.objectInstance) && Objects.equals(attributes, that.attributes);
     }
 
     @Override
     public int hashCode() {
-
         return Objects.hash(objectInstance, attributes);
     }
 
     @Override
     public String toString() {
-        return "MBeanMetric{" +
-                "objectInstance='" + objectInstance + '\'' +
-                ", attributes=" + attributes +
-                '}';
+        return "MBeanMetric{"
+            + "objectInstance="
+            + objectInstance
+            + ", attributes="
+            + attributes
+            + '}';
     }
 }
