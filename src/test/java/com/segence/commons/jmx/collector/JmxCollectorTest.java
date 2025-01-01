@@ -1,6 +1,11 @@
 package com.segence.commons.jmx.collector;
 
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 import javax.management.Attribute;
 import javax.management.MalformedObjectNameException;
@@ -10,10 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
-
-public class JmxCollectorTest {
+class JmxCollectorTest {
 
     private final static String CURRENT_SYSTEM_ARCHITECTURE = System.getProperty("os.arch");
     private final static int NUMBER_OF_CPU_CORES = Runtime.getRuntime().availableProcessors();
