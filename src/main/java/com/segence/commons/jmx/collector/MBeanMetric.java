@@ -8,8 +8,8 @@ import java.util.Objects;
 
 public class MBeanMetric implements Serializable {
 
-    private ObjectInstance objectInstance;
-    private List<Attribute> attributes;
+    private final ObjectInstance objectInstance;
+    private final List<Attribute> attributes;
 
     public MBeanMetric(ObjectInstance objectInstance, List<Attribute> attributes) {
         this.objectInstance = objectInstance;
