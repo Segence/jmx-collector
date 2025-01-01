@@ -27,11 +27,11 @@ public final class MBeanMetricResult implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MBeanMetricResult that = (MBeanMetricResult) o;
-        return Objects.equals(error, that.error) &&
-                Objects.equals(mBeanMetric, that.mBeanMetric);
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final MBeanMetricResult that = (MBeanMetricResult) o;
+        return Objects.equals(error, that.error) && Objects.equals(mBeanMetric, that.mBeanMetric);
     }
 
     @Override
@@ -41,9 +41,11 @@ public final class MBeanMetricResult implements Serializable {
 
     @Override
     public String toString() {
-        return "MBeanMetricResult{" +
-                "error=" + error +
-                ", mBeanMetric=" + mBeanMetric +
-                '}';
+        return "MBeanMetricResult{"
+            + "error="
+            + error
+            + ", mBeanMetric="
+            + mBeanMetric
+            + '}';
     }
 }

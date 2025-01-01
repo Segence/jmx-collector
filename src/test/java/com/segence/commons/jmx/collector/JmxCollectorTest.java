@@ -24,6 +24,7 @@ class JmxCollectorTest {
     private final static String CURRENT_SYSTEM_ARCHITECTURE = System.getProperty("os.arch");
     private final static int NUMBER_OF_CPU_CORES = Runtime.getRuntime().availableProcessors();
 
+    // CHECKSTYLE:OFF: checkstyle:AvoidDoubleBraceInitialization
     @Test
     public void shouldReportInvalidMbeansAndAttributeValues() throws MalformedObjectNameException {
 
@@ -98,4 +99,5 @@ class JmxCollectorTest {
 
         assertThat(result, is(expectedResult));
     }
+    // CHECKSTYLE:ON: checkstyle:AvoidDoubleBraceInitialization
 }
