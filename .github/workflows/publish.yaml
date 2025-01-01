@@ -1,0 +1,24 @@
+#name: publish
+#on:
+#  release:
+#    types: [published]
+#jobs:
+#  publish-to-sonatype:
+#    name: Publish Maven distribution 📦 to Sonatype
+#    runs-on: ubuntu-latest
+#    permissions:
+#      id-token: write
+#    steps:
+#    - uses: actions/checkout@v4
+#    - name: Set up JDK
+#      uses: actions/setup-java@v4
+#      with:
+#        distribution: temurin
+#        java-version: '17'
+#    - name: Publish
+#      env:
+#        ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGKEY }}
+#        ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.ORG_GRADLE_PROJECT_SIGNINGPASSWORD }}
+#        ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USER }}
+#        ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+#      run: make publish
