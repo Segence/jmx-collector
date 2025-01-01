@@ -28,11 +28,3 @@ dependencyCheck {
 }
 
 apply from: 'gradle/java.gradle'
-
-dependencies {
-  testImplementation (
-    "org.junit.jupiter:junit-jupiter-api:${junitVersion}",
-    "org.junit.jupiter:junit-jupiter:${junitVersion}",
-    "org.junit.platform:junit-platform-runner:${junitPlatformVersion}"
-  )
-}

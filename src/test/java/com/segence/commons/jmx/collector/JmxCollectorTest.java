@@ -1,34 +1,29 @@
 package com.segence.commons.jmx.collector;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 
 import javax.management.Attribute;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectInstance;
 import javax.management.ObjectName;
-
-import org.junit.jupiter.api.Test;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class JmxCollectorTest {
 
     private final static String CURRENT_SYSTEM_ARCHITECTURE = System.getProperty("os.arch");
     private final static int NUMBER_OF_CPU_CORES = Runtime.getRuntime().availableProcessors();
 
-    // CHECKSTYLE:OFF: checkstyle:AvoidDoubleBraceInitialization
     @Test
     public void shouldReportInvalidMbeansAndAttributeValues() throws MalformedObjectNameException {
 
-        final Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<>() {{
+        Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<ObjectName, Set<String>>() {{
             try {
                 put(
                     new ObjectName("java.lang:type=OperatingSystem"),
@@ -47,17 +42,14 @@ class JmxCollectorTest {
             }
         }};
 
-        final var objectInstance = new ObjectInstance(
-            "java.lang:type=OperatingSystem",
-            "com.sun.management.internal.OperatingSystemImpl"
-        );
+        ObjectInstance objectInstance = new ObjectInstance("java.lang:type=OperatingSystem", "sun.management.OperatingSystemImpl");
 
-        final var expectedResult = Stream.of(
+        Set<MBeanMetricResult> expectedResult = Stream.of(
             new MBeanMetricResult(
                 new MBeanMetric(objectInstance, Collections.emptyList())
             )).collect(Collectors.toSet());
 
-        final var result = JmxCollector.queryAsSet(mbeansAndAttributesToQuery);
+        Set<MBeanMetricResult> result = JmxCollector.queryAsSet(mbeansAndAttributesToQuery);
 
         assertThat(result, is(expectedResult));
     }
@@ -65,7 +57,7 @@ class JmxCollectorTest {
     @Test
     public void shouldReturnAllValidMbeansAndAttributeValues() throws MalformedObjectNameException {
 
-        final Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<>() {{
+        Map<ObjectName, Set<String>> mbeansAndAttributesToQuery = new HashMap<ObjectName, Set<String>>() {{
             try {
                 put(
                     new ObjectName("java.lang:type=OperatingSystem"),
@@ -79,12 +71,9 @@ class JmxCollectorTest {
             }
         }};
 
-        final var objectInstance = new ObjectInstance(
-            "java.lang:type=OperatingSystem",
-            "com.sun.management.internal.OperatingSystemImpl"
-        );
+        ObjectInstance objectInstance = new ObjectInstance("java.lang:type=OperatingSystem", "sun.management.OperatingSystemImpl");
 
-        final var expectedResult = Stream.of(
+        Set<MBeanMetricResult> expectedResult = Stream.of(
             new MBeanMetricResult(
                 new MBeanMetric(
                     objectInstance,
@@ -95,9 +84,8 @@ class JmxCollectorTest {
                 )
         )).collect(Collectors.toSet());
 
-        final var result = JmxCollector.queryAsSet(mbeansAndAttributesToQuery);
+        Set<MBeanMetricResult> result = JmxCollector.queryAsSet(mbeansAndAttributesToQuery);
 
         assertThat(result, is(expectedResult));
     }
-    // CHECKSTYLE:ON: checkstyle:AvoidDoubleBraceInitialization
 }
