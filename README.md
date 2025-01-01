@@ -1,8 +1,8 @@
 JMX Collector
 =============
 
-[![Build Status](https://travis-ci.org/Segence/jmx-collector.svg?branch=master)](https://travis-ci.org/Segence/jmx-collector)
-[ ![Download](https://api.bintray.com/packages/segence/maven-oss-releases/jmx-collector/images/download.svg) ](https://bintray.com/segence/maven-oss-releases/jmx-collector/_latestVersion)
+![Workflow Status](https://github.com/segence/jmx-collector/actions/workflows/test.yaml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/Segence/jmx-collector/badge.svg?branch=main)](https://coveralls.io/github/Segence/jmx-collector?branch=main)
 
 A library to collect JMX metrics.
 
