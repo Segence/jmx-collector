@@ -25,7 +25,7 @@ unit-test-publish-report:
 
 .PHONY: build # Builds artifacts
 build:
-	@./gradlew clean build
+	@./gradlew clean build -Pversion=$(VERSION)
 
 .PHONY: static-analysis # Analyzes the build
 static-analysis:
